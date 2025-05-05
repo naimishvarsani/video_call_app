@@ -37,6 +37,9 @@ dependencies:
   get:
   google_fonts:
   smooth_page_indicator:
+  google_mobile_ads:
+  persistent_bottom_nav_bar_v2:
+  http: ^1.3.0
 
 dev_dependencies:
   flutter_test:

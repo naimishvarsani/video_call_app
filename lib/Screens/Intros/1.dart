@@ -3,13 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:video_app/Controllers/app_add_controller.dart';
 import 'package:video_app/Screens/Intros/2.dart';
+import 'package:video_app/main.dart';
 import '../../Utilities/colors.dart';
 import '../../Utilities/common_widget.dart';
 import '../../Utilities/images.dart';
 
 class Intro1 extends StatefulWidget {
-  const Intro1({super.key});
+  AppAddController addController = Get.put(AppAddController());
 
   @override
   State<Intro1> createState() => _Intro1State();
@@ -64,6 +66,7 @@ class _Intro1State extends State<Intro1> {
             SizedBox(height: 30),
             GestureDetector(
               onTap: () {
+                addController.showInterstitialAd();
                 Get.to(Intro2());
               },
               child: Container(

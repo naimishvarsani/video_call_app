@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:video_app/Screens/Intros/4.dart';
 
+import '../../Controllers/app_add_controller.dart';
 import '../../Utilities/colors.dart';
 import '../../Utilities/common_widget.dart';
 import '../../Utilities/images.dart';
@@ -17,6 +18,7 @@ class Intro3 extends StatefulWidget {
 }
 
 class _Intro3State extends State<Intro3> {
+  AppAddController addController = Get.put(AppAddController());
   PageController pageController = PageController(initialPage: 2);
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class _Intro3State extends State<Intro3> {
             SizedBox(height: 30),
             GestureDetector(
               onTap: () {
+                addController.showInterstitialAd();
                 Get.to(Intro4());
               },
               child: Container(

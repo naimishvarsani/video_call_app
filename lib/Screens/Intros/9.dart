@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../Controllers/app_add_controller.dart';
 import '../../Utilities/colors.dart';
 import '../../Utilities/common_widget.dart';
 import '../../Utilities/images.dart';
+import '../bottomnav_bar.dart';
 
 class Intro9 extends StatefulWidget {
   const Intro9({super.key});
@@ -15,6 +17,7 @@ class Intro9 extends StatefulWidget {
 }
 
 class _Intro9State extends State<Intro9> {
+  AppAddController addController = Get.put(AppAddController());
   PageController pageController = PageController(initialPage: 8);
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,8 @@ class _Intro9State extends State<Intro9> {
             SizedBox(height: 30),
             GestureDetector(
               onTap: () {
-                // Get.to(Intro2());
+                addController.showInterstitialAd();
+                Get.to(BottomNavBar());
               },
               child: Container(
                 height: 50,
