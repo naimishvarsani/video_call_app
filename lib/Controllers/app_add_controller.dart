@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable, avoid_function_literals_in_foreach_calls, avoid_print, invalid_use_of_protected_member, prefer_const_constructors, unused_element
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 

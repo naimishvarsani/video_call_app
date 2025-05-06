@@ -14,7 +14,8 @@ void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   MobileAds.instance.initialize();
-  Future.delayed(Duration(seconds: 2), () => addController.loadAppOpenAd());
+  Future.delayed(
+      Duration(milliseconds: 500), () => addController.loadAppOpenAd());
   runApp(const MyApp());
 }
 

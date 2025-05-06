@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:video_app/Screens/Intros/3.dart';
 import '../../Controllers/app_add_controller.dart';
@@ -17,6 +18,64 @@ class Intro2 extends StatefulWidget {
 class _Intro2State extends State<Intro2> {
   AppAddController addController = Get.put(AppAddController());
   PageController pageController = PageController(initialPage: 1);
+  NativeAd? _nativeAd;
+  bool _nativeAdIsLoaded = false;
+
+  void loadNativeAd() {
+    _nativeAd = NativeAd(
+        adUnitId: "ca-app-pub-3940256099942544/2247696110",
+        listener: NativeAdListener(
+          onAdLoaded: (ad) {
+            print('$NativeAd loaded.');
+            setState(() {
+              _nativeAdIsLoaded = true;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {
+            print('$NativeAd failedToLoad: $error');
+            ad.dispose();
+          },
+          onAdClicked: (ad) {},
+          onAdImpression: (ad) {},
+          onAdClosed: (ad) {},
+          onAdOpened: (ad) {},
+          onAdWillDismissScreen: (ad) {},
+          onPaidEvent: (ad, valueMicros, precision, currencyCode) {},
+        ),
+        request: const AdRequest(),
+        nativeTemplateStyle: NativeTemplateStyle(
+            templateType: TemplateType.medium,
+            mainBackgroundColor: Colors.purple,
+            cornerRadius: 10.0,
+            callToActionTextStyle: NativeTemplateTextStyle(
+                textColor: Colors.cyan,
+                backgroundColor: Colors.red,
+                style: NativeTemplateFontStyle.monospace,
+                size: 16.0),
+            primaryTextStyle: NativeTemplateTextStyle(
+                textColor: Colors.red,
+                backgroundColor: Colors.cyan,
+                style: NativeTemplateFontStyle.italic,
+                size: 16.0),
+            secondaryTextStyle: NativeTemplateTextStyle(
+                textColor: Colors.green,
+                backgroundColor: Colors.black,
+                style: NativeTemplateFontStyle.bold,
+                size: 16.0),
+            tertiaryTextStyle: NativeTemplateTextStyle(
+                textColor: Colors.brown,
+                backgroundColor: Colors.amber,
+                style: NativeTemplateFontStyle.normal,
+                size: 16.0)))
+      ..load();
+  }
+
+  @override
+  void initState() {
+    loadNativeAd();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +108,16 @@ class _Intro2State extends State<Intro2> {
                   image: DecorationImage(
                       image: AssetImage(AppImage.images + "2.png"),
                       fit: BoxFit.contain)),
+            ),
+            SizedBox(height: 25),
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: 320,
+                minHeight: 90,
+                maxWidth: 400,
+                maxHeight: 200,
+              ),
+              child: AdWidget(ad: _nativeAd!),
             ),
             Spacer(),
             SmoothPageIndicator(
