@@ -23,7 +23,7 @@ class _Intro2State extends State<Intro2> {
 
   void loadNativeAd() {
     _nativeAd = NativeAd(
-        adUnitId: "ca-app-pub-3940256099942544/2247696110",
+        adUnitId: 'ca-app-pub-3940256099942544/2247696110',
         listener: NativeAdListener(
           onAdLoaded: (ad) {
             print('$NativeAd loaded.');
@@ -44,29 +44,8 @@ class _Intro2State extends State<Intro2> {
         ),
         request: const AdRequest(),
         nativeTemplateStyle: NativeTemplateStyle(
-            templateType: TemplateType.medium,
-            mainBackgroundColor: Colors.purple,
-            cornerRadius: 10.0,
-            callToActionTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.cyan,
-                backgroundColor: Colors.red,
-                style: NativeTemplateFontStyle.monospace,
-                size: 16.0),
-            primaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.red,
-                backgroundColor: Colors.cyan,
-                style: NativeTemplateFontStyle.italic,
-                size: 16.0),
-            secondaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.green,
-                backgroundColor: Colors.black,
-                style: NativeTemplateFontStyle.bold,
-                size: 16.0),
-            tertiaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.brown,
-                backgroundColor: Colors.amber,
-                style: NativeTemplateFontStyle.normal,
-                size: 16.0)))
+          templateType: TemplateType.medium,
+        ))
       ..load();
   }
 
@@ -110,15 +89,15 @@ class _Intro2State extends State<Intro2> {
                       fit: BoxFit.contain)),
             ),
             SizedBox(height: 25),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                minWidth: 320,
-                minHeight: 90,
-                maxWidth: 400,
-                maxHeight: 200,
-              ),
-              child: AdWidget(ad: _nativeAd!),
-            ),
+            _nativeAdIsLoaded
+                ? Container(
+                    height: 170,
+                    width: Get.width,
+                    alignment: Alignment.center,
+                    color: Colors.black12,
+                    child: AdWidget(ad: _nativeAd!),
+                  )
+                : SizedBox(),
             Spacer(),
             SmoothPageIndicator(
               controller: pageController,

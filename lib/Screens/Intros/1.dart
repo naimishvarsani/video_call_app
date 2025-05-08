@@ -46,29 +46,8 @@ class _Intro1State extends State<Intro1> {
         ),
         request: const AdRequest(),
         nativeTemplateStyle: NativeTemplateStyle(
-            templateType: TemplateType.medium,
-            mainBackgroundColor: Colors.purple,
-            cornerRadius: 10.0,
-            callToActionTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.cyan,
-                backgroundColor: Colors.red,
-                style: NativeTemplateFontStyle.monospace,
-                size: 16.0),
-            primaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.red,
-                backgroundColor: Colors.cyan,
-                style: NativeTemplateFontStyle.italic,
-                size: 16.0),
-            secondaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.green,
-                backgroundColor: Colors.black,
-                style: NativeTemplateFontStyle.bold,
-                size: 16.0),
-            tertiaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.brown,
-                backgroundColor: Colors.amber,
-                style: NativeTemplateFontStyle.normal,
-                size: 16.0)))
+          templateType: TemplateType.medium,
+        ))
       ..load();
   }
 
@@ -117,7 +96,7 @@ class _Intro1State extends State<Intro1> {
                     height: 170,
                     width: Get.width,
                     alignment: Alignment.center,
-                    color: Colors.white,
+                    color: Colors.black12,
                     child: AdWidget(ad: _nativeAd!),
                   )
                 : SizedBox(),

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Controllers/app_add_controller.dart';
 import '../../Utilities/colors.dart';
@@ -19,6 +20,44 @@ class Intro9 extends StatefulWidget {
 class _Intro9State extends State<Intro9> {
   AppAddController addController = Get.put(AppAddController());
   PageController pageController = PageController(initialPage: 8);
+
+  NativeAd? _nativeAd;
+  bool _nativeAdIsLoaded = false;
+
+  void loadNativeAd() {
+    _nativeAd = NativeAd(
+        adUnitId: 'ca-app-pub-3940256099942544/2247696110',
+        listener: NativeAdListener(
+          onAdLoaded: (ad) {
+            print('$NativeAd loaded.');
+            setState(() {
+              _nativeAdIsLoaded = true;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {
+            print('$NativeAd failedToLoad: $error');
+            ad.dispose();
+          },
+          onAdClicked: (ad) {},
+          onAdImpression: (ad) {},
+          onAdClosed: (ad) {},
+          onAdOpened: (ad) {},
+          onAdWillDismissScreen: (ad) {},
+          onPaidEvent: (ad, valueMicros, precision, currencyCode) {},
+        ),
+        request: const AdRequest(),
+        nativeTemplateStyle: NativeTemplateStyle(
+          templateType: TemplateType.medium,
+        ))
+      ..load();
+  }
+
+  @override
+  void initState() {
+    loadNativeAd();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +91,16 @@ class _Intro9State extends State<Intro9> {
                       image: AssetImage(AppImage.images + "9.png"),
                       fit: BoxFit.contain)),
             ),
+            SizedBox(height: 25),
+            _nativeAdIsLoaded
+                ? Container(
+                    height: 170,
+                    width: Get.width,
+                    alignment: Alignment.center,
+                    color: Colors.black12,
+                    child: AdWidget(ad: _nativeAd!),
+                  )
+                : SizedBox(),
             Spacer(),
             SmoothPageIndicator(
               controller: pageController,
